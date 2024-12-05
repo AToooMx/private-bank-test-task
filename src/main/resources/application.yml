@@ -1,0 +1,35 @@
+server:
+  port: 9090
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 31672
+    username: rabbit
+    password: 1234
+    virtual-host: vhost
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1234
+    driver-class-name: org.postgresql.Driver
+
+integration:
+  mono-bank:
+    service-url: https://api.monobank.ua/bank/
+  private-bank:
+    service-url: https://api.privatbank.ua/p24api
+
+scheduling:
+  currency-rate-cache:
+    enabled: true
+    delay: PT1H
+
+rabbitmq:
+  exchange-rates:
+    exchange: exchange.rates
+    routing-key: exchange.rates.routing

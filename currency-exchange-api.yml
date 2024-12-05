@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: Currency exchange rates API
+  description: Currency exchange rates API
+  version: v1.0.0
+paths:
+  /api/exchange/rates/latest:
+    get:
+      tags:
+      summary: get latest rate
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+          example: USD
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRateDto'
+
+  /api/exchange/rates/hourly:
+    get:
+      tags:
+      summary: get hourly rate dynamics
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+          example: USD
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExchangeRateDynamicDto'
+
+  /api/exchange/rates/daily:
+    get:
+      tags:
+      summary: get daily rate dynamics
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - EUR
+              - USD
+          example: USD
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExchangeRateDynamicDto'
+
+components:
+
+  schemas:
+    Currency:
+      type: string
+      enum:
+        - EUR
+        - USD
+      example: USD
+
+
+    ExchangeRateDto:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        date:
+          type: string
+          example: "2024-12-03T19:50:32.400835Z"
+        rateBuy:
+          type: string
+          example: 43.41
+        rateSell:
+          type: string
+          example: 44.2647
+
+    ExchangeRateDynamicDto:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        date:
+          type: string
+          example: "2024-12-03T19:50:32.400835Z"
+        dynamicRateBuy:
+          type: string
+          example: 43.41
+        dynamicRateSell:
+          type: string
+          example: 44.2647
+
+
+
